@@ -54,6 +54,10 @@ public class ConsoleDecompiler implements IBytecodeProvider, IResultSaver {
           addPath(libraries, arg.substring(3));
         }
         else {
+          if(libraries.contains(arg)){
+            System.out.println("error: library '" + arg + "' cannot be source at the same tim");
+            return;
+          }
           addPath(sources, arg);
         }
       }
