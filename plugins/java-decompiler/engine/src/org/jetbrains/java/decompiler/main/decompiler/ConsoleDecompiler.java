@@ -51,14 +51,15 @@ public class ConsoleDecompiler implements IBytecodeProvider, IResultSaver {
         isOption = false;
 
         if (arg.startsWith("-e=")) {
-          addPath(libraries, arg.substring(3));
+          addPath(libraries, new File(arg.substring(3)).getAbsolutePath());
         }
         else {
-          if(libraries.contains(arg)){
-            System.out.println("error: library '" + arg + "' cannot be source at the same tim");
+          String absPath = new File(arg).getAbsolutePath();
+          if(libraries.contains(absPath)){
+            System.out.println("error: '" + absPath + "' cannot be library and source at the same time, check your '-e' options");
             return;
           }
-          addPath(sources, arg);
+          addPath(sources, absPath);
         }
       }
     }
